@@ -51,6 +51,10 @@ class RoofTopDataset(D.Dataset):
         self.name_list = name_list
         self.transform = transform
         self.test_mode = test_mode
+        
+        #检验image_paths和image_list的值
+        print("image_paths",image_paths)
+        print("image_list",image_list)
 
         if self.image_paths:
             self.len = len(image_paths)
@@ -124,14 +128,14 @@ def get_test_data(image_folder, output_folder=None):
     return test_ds
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":   #python常用模式，检查脚本是否作为主程序运行
     import numpy as np
     import matplotlib.pyplot as plt
     from utils.utils import sliding
     import torch.nn.functional as F
 
-    test_ds = get_test_data("./data/test/images")
-    loader = D.DataLoader(test_ds, batch_size=1, shuffle=False)
+    test_ds = get_test_data(r"E:\data\test_RoofTopSegmatation")  #
+    loader = D.DataLoader(test_ds, batch_size=1, shuffle=False)    #DataLoader数据加载器，batch_size=1为每次处理一个图像，shuffle=False表示不随机打乱数据
 
     image = next(iter(loader)).squeeze(0)
     WINDOWS_SIZE = 256
